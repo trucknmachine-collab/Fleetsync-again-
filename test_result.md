@@ -101,3 +101,182 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: Build a weekly timesheet app for machine operators and truck drivers with a tick and flick style daily pre start checklist
+
+backend:
+  - task: "API Root Endpoint"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "main"
+        - comment: "Returns 'Weekly Timesheet API' message successfully"
+
+  - task: "Create Daily Entry"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "main"
+        - comment: "POST /api/entries creates entries with all fields including checklist, times, location, engine hours"
+
+  - task: "Get Entry by Date"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "main"
+        - comment: "GET /api/entries/{date} returns entry correctly"
+
+  - task: "Get All Entries"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "GET /api/entries with optional date filters - needs testing"
+
+  - task: "Update Entry"
+    implemented: true
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "PUT /api/entries/{date} - needs testing"
+
+  - task: "Delete Entry"
+    implemented: true
+    working: "NA"
+    file: "server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "DELETE /api/entries/{date} - needs testing"
+
+  - task: "Weekly Summary"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "main"
+        - comment: "GET /api/weekly-summary returns total hours, overtime, days worked and entries"
+
+frontend:
+  - task: "Today Tab - Pre-Start Checklist"
+    implemented: true
+    working: true
+    file: "app/(tabs)/today.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+        - agent: "main"
+        - comment: "Screenshot shows checklist with tick boxes and defects fields"
+
+  - task: "Today Tab - Timesheet Entry"
+    implemented: true
+    working: "NA"
+    file: "app/(tabs)/today.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Start/end time, break, job, engine hours - needs frontend testing"
+
+  - task: "Week Tab - Weekly Summary"
+    implemented: true
+    working: "NA"
+    file: "app/(tabs)/week.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Needs frontend testing"
+
+  - task: "Week Tab - Share Functionality"
+    implemented: true
+    working: "NA"
+    file: "app/(tabs)/week.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Native share for email/SMS - needs frontend testing"
+
+  - task: "History Tab"
+    implemented: true
+    working: "NA"
+    file: "app/(tabs)/history.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "Needs frontend testing"
+
+  - task: "Location Capture"
+    implemented: true
+    working: "NA"
+    file: "app/(tabs)/today.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+        - agent: "main"
+        - comment: "GPS location with expo-location - needs device testing"
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Update Entry"
+    - "Delete Entry"
+    - "Get All Entries"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+    - message: "MVP implementation complete. Backend APIs and frontend tabs all created. Screenshot confirms Today tab is rendering with pre-start checklist. Need backend testing for update/delete endpoints."
