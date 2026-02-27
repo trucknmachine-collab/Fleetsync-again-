@@ -158,15 +158,18 @@ backend:
 
   - task: "Update Entry"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
         - comment: "PUT /api/entries/{date} - needs testing"
+        - working: true
+        - agent: "testing"
+        - comment: "✅ TESTED: PUT /api/entries/{date} successfully updates existing entries with partial data. Correctly returns 404 for non-existent entries. Updated fields are properly reflected in response."
 
   - task: "Delete Entry"
     implemented: true
