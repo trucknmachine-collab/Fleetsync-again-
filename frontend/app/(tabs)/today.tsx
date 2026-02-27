@@ -34,6 +34,7 @@ interface DailyEntry {
   id: string;
   date: string;
   worker_name: string;
+  fleet_number: string;
   pre_start_checklist: ChecklistItem[];
   pre_start_completed: boolean;
   start_time: string | null;
