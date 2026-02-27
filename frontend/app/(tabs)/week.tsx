@@ -108,9 +108,13 @@ export default function WeekScreen() {
     if (!summary) return '';
 
     const workerName = summary.entries[0]?.worker_name || 'Worker';
+    const fleetNum = summary.entries[0]?.fleet_number || '';
     let text = `WEEKLY TIMESHEET SUMMARY\n`;
     text += `========================\n`;
     text += `Worker: ${workerName}\n`;
+    if (fleetNum) {
+      text += `Fleet #: ${fleetNum}\n`;
+    }
     text += `Week: ${format(currentWeekStart, 'MMM d')} - ${format(weekEnd, 'MMM d, yyyy')}\n\n`;
     
     text += `SUMMARY:\n`;
