@@ -778,4 +778,23 @@ const styles = StyleSheet.create({
   bottomPadding: {
     height: 20,
   },
+  quickTimeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 8,
+    gap: 4,
+  },
+  quickTimeBtn: {
+    flex: 1,
+    backgroundColor: '#3d3d5c',
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    borderRadius: 6,
+    alignItems: 'center',
+  },
+  quickTimeBtnText: {
+    color: '#9ca3af',
+    fontSize: 12,
+    fontWeight: '600',
+  },
 });
