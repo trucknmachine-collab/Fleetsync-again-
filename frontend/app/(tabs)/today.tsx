@@ -818,4 +818,39 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+  defectsSummary: {
+    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+    borderRadius: 10,
+    padding: 14,
+    marginTop: 16,
+    borderWidth: 1,
+    borderColor: '#f59e0b',
+  },
+  defectsSummaryHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  defectsSummaryTitle: {
+    color: '#f59e0b',
+    fontSize: 16,
+    fontWeight: '700',
+    marginLeft: 8,
+  },
+  defectsSummaryItem: {
+    marginBottom: 8,
+    paddingLeft: 8,
+    borderLeftWidth: 2,
+    borderLeftColor: '#f59e0b',
+  },
+  defectsSummaryItemName: {
+    color: '#ffffff',
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  defectsSummaryItemText: {
+    color: '#fbbf24',
+    fontSize: 14,
+    marginTop: 2,
+  },
 });
