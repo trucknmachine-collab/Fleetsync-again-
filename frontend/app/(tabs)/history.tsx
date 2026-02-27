@@ -185,6 +185,15 @@ export default function HistoryScreen() {
                       <Text style={styles.detailValue}>{entry.worker_name}</Text>
                     </View>
 
+                    {/* Fleet Number */}
+                    {entry.fleet_number && (
+                      <View style={styles.detailRow}>
+                        <Ionicons name="car-outline" size={18} color="#9ca3af" />
+                        <Text style={styles.detailLabel}>Fleet #:</Text>
+                        <Text style={styles.detailValue}>{entry.fleet_number}</Text>
+                      </View>
+                    )}
+
                     {/* Time */}
                     {entry.start_time && entry.end_time && (
                       <View style={styles.detailRow}>
