@@ -173,6 +173,7 @@ export default function TodayScreen() {
       const entryData = {
         date: today,
         worker_name: workerName,
+        fleet_number: fleetNumber,
         pre_start_checklist: checklist,
         pre_start_completed: preStartCompleted,
         start_time: startTime || null,
