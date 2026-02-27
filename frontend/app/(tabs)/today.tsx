@@ -385,22 +385,46 @@ export default function TodayScreen() {
                 <TextInput
                   style={styles.input}
                   value={startTime}
-                  onChangeText={setStartTime}
+                  onChangeText={handleStartTimeChange}
                   placeholder="HH:MM"
                   placeholderTextColor="#6b7280"
-                  keyboardType="numbers-and-punctuation"
+                  keyboardType="numeric"
+                  maxLength={5}
                 />
+                <View style={styles.quickTimeRow}>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickStartTime('06:00')}>
+                    <Text style={styles.quickTimeBtnText}>6am</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickStartTime('07:00')}>
+                    <Text style={styles.quickTimeBtnText}>7am</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickStartTime('08:00')}>
+                    <Text style={styles.quickTimeBtnText}>8am</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
               <View style={styles.timeInput}>
                 <Text style={styles.inputLabel}>End Time</Text>
                 <TextInput
                   style={styles.input}
                   value={endTime}
-                  onChangeText={setEndTime}
+                  onChangeText={handleEndTimeChange}
                   placeholder="HH:MM"
                   placeholderTextColor="#6b7280"
-                  keyboardType="numbers-and-punctuation"
+                  keyboardType="numeric"
+                  maxLength={5}
                 />
+                <View style={styles.quickTimeRow}>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickEndTime('15:00')}>
+                    <Text style={styles.quickTimeBtnText}>3pm</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickEndTime('16:00')}>
+                    <Text style={styles.quickTimeBtnText}>4pm</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickEndTime('17:00')}>
+                    <Text style={styles.quickTimeBtnText}>5pm</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
 
