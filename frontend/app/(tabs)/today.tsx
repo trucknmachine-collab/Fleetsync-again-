@@ -76,6 +76,7 @@ export default function TodayScreen() {
   const [notes, setNotes] = useState('');
   const [location, setLocation] = useState<LocationData | null>(null);
   const [workerName, setWorkerName] = useState('Worker');
+  const [fleetNumber, setFleetNumber] = useState('');
 
   const fetchEntry = useCallback(async () => {
     try {
