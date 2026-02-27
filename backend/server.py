@@ -107,7 +107,10 @@ DEFAULT_CHECKLIST = [
     "Hydraulic Oil",
     "Coolant",
     "Mirrors",
-    "Seatbelts"
+    "Seatbelts",
+    "UHF",
+    "Leaks",
+    "Steering"
 ]
 
 # Routes
