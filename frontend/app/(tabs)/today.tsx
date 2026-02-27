@@ -370,6 +370,24 @@ export default function TodayScreen() {
               </View>
             ))}
 
+            {/* Defects Summary List */}
+            {checklist.some(item => item.defects.trim() !== '') && (
+              <View style={styles.defectsSummary}>
+                <View style={styles.defectsSummaryHeader}>
+                  <Ionicons name="warning" size={20} color="#f59e0b" />
+                  <Text style={styles.defectsSummaryTitle}>Defects List</Text>
+                </View>
+                {checklist
+                  .filter(item => item.defects.trim() !== '')
+                  .map((item, index) => (
+                    <View key={index} style={styles.defectsSummaryItem}>
+                      <Text style={styles.defectsSummaryItemName}>{item.name}:</Text>
+                      <Text style={styles.defectsSummaryItemText}>{item.defects}</Text>
+                    </View>
+                  ))}
+              </View>
+            )}
+
             {!preStartCompleted && (
               <TouchableOpacity style={styles.completeButton} onPress={completePreStart}>
                 <Ionicons name="checkmark-done" size={20} color="#1a1a2e" />
