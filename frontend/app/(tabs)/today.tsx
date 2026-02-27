@@ -58,6 +58,9 @@ const DEFAULT_CHECKLIST: ChecklistItem[] = [
   { name: 'Coolant', passed: false, defects: '' },
   { name: 'Mirrors', passed: false, defects: '' },
   { name: 'Seatbelts', passed: false, defects: '' },
+  { name: 'UHF', passed: false, defects: '' },
+  { name: 'Leaks', passed: false, defects: '' },
+  { name: 'Steering', passed: false, defects: '' },
 ];
 
 export default function TodayScreen() {
