@@ -96,6 +96,7 @@ export default function TodayScreen() {
         setNotes(data.notes || '');
         setLocation(data.location);
         setWorkerName(data.worker_name || 'Worker');
+        setFleetNumber(data.fleet_number || '');
       }
     } catch (error) {
       console.log('No existing entry for today');
