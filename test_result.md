@@ -173,15 +173,18 @@ backend:
 
   - task: "Delete Entry"
     implemented: true
-    working: "NA"
+    working: true
     file: "server.py"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
         - agent: "main"
         - comment: "DELETE /api/entries/{date} - needs testing"
+        - working: true
+        - agent: "testing"
+        - comment: "✅ TESTED: DELETE /api/entries/{date} successfully removes entries. Correctly returns 404 for non-existent entries. Deletion confirmed by subsequent GET request returning 404."
 
   - task: "Weekly Summary"
     implemented: true
