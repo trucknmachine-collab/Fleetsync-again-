@@ -110,7 +110,8 @@ DEFAULT_CHECKLIST = [
     "Seatbelts",
     "UHF",
     "Leaks",
-    "Steering"
+    "Steering",
+    "Windscreen/Windows"
 ]
 
 # Routes
