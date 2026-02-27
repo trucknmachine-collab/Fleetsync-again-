@@ -59,33 +59,37 @@ export default function WeekScreen() {
   const weekEnd = endOfWeek(currentWeekStart, { weekStartsOn: 1 });
   const weekDays = eachDayOfInterval({ start: currentWeekStart, end: weekEnd });
 
-  const fetchWeeklySummary = useCallback(async () => {
-    try {
-      setLoading(true);
-      const startStr = format(currentWeekStart, 'yyyy-MM-dd');
-      const endStr = format(weekEnd, 'yyyy-MM-dd');
-      
-      const response = await fetch(
-        `${API_URL}/api/weekly-summary?week_start=${startStr}&week_end=${endStr}`
-      );
-      
-      if (response.ok) {
-        const data = await response.json();
-        setSummary(data);
-      } else {
-        setSummary(null);
-      }
-    } catch (error) {
-      console.error('Error fetching weekly summary:', error);
-      setSummary(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentWeekStart, weekEnd]);
-
   useEffect(() => {
+    const fetchWeeklySummary = async () => {
+      try {
+        setLoading(true);
+        const startStr = format(currentWeekStart, 'yyyy-MM-dd');
+        const endStr = format(endOfWeek(currentWeekStart, { weekStartsOn: 1 }), 'yyyy-MM-dd');
+        
+        console.log('Fetching weekly summary:', `${API_URL}/api/weekly-summary?week_start=${startStr}&week_end=${endStr}`);
+        
+        const response = await fetch(
+          `${API_URL}/api/weekly-summary?week_start=${startStr}&week_end=${endStr}`
+        );
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Weekly summary data:', data);
+          setSummary(data);
+        } else {
+          console.error('Response not ok:', response.status);
+          setSummary(null);
+        }
+      } catch (error) {
+        console.error('Error fetching weekly summary:', error);
+        setSummary(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
     fetchWeeklySummary();
-  }, [fetchWeeklySummary]);
+  }, [currentWeekStart]);
 
   const goToPreviousWeek = () => {
     setCurrentWeekStart(subWeeks(currentWeekStart, 1));
