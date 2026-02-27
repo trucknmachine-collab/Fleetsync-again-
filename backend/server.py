@@ -41,6 +41,7 @@ class DailyEntry(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     date: str  # YYYY-MM-DD format
     worker_name: str = "Worker"
+    fleet_number: str = ""
     pre_start_checklist: List[ChecklistItem] = []
     pre_start_completed: bool = False
     start_time: Optional[str] = None  # HH:MM format
@@ -59,6 +60,7 @@ class DailyEntry(BaseModel):
 class DailyEntryCreate(BaseModel):
     date: str
     worker_name: str = "Worker"
+    fleet_number: str = ""
     pre_start_checklist: List[ChecklistItem] = []
     pre_start_completed: bool = False
     start_time: Optional[str] = None
@@ -74,6 +76,7 @@ class DailyEntryCreate(BaseModel):
 
 class DailyEntryUpdate(BaseModel):
     worker_name: Optional[str] = None
+    fleet_number: Optional[str] = None
     pre_start_checklist: Optional[List[ChecklistItem]] = None
     pre_start_completed: Optional[bool] = None
     start_time: Optional[str] = None
