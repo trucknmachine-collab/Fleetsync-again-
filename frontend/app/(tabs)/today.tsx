@@ -270,6 +270,18 @@ export default function TodayScreen() {
             />
           </View>
 
+          {/* Fleet Number */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Fleet Number</Text>
+            <TextInput
+              style={styles.input}
+              value={fleetNumber}
+              onChangeText={setFleetNumber}
+              placeholder="Enter fleet/vehicle number"
+              placeholderTextColor="#6b7280"
+            />
+          </View>
+
           {/* Pre-Start Checklist */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
