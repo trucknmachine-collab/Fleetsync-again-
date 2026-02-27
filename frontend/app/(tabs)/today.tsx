@@ -51,8 +51,10 @@ interface DailyEntry {
 const DEFAULT_CHECKLIST: ChecklistItem[] = [
   { name: 'Lights', passed: false, defects: '' },
   { name: 'Brakes', passed: false, defects: '' },
-  { name: 'Tyres', passed: false, defects: '' },
-  { name: 'Fluids', passed: false, defects: '' },
+  { name: 'Tyres/Tracks', passed: false, defects: '' },
+  { name: 'Engine Oil', passed: false, defects: '' },
+  { name: 'Hydraulic Oil', passed: false, defects: '' },
+  { name: 'Coolant', passed: false, defects: '' },
   { name: 'Mirrors', passed: false, defects: '' },
   { name: 'Seatbelts', passed: false, defects: '' },
 ];
