@@ -152,16 +152,64 @@ export default function TodayScreen() {
   const calculateHours = (start: string, end: string, breakMins: number): { total: number; overtime: number } => {
     if (!start || !end) return { total: 0, overtime: 0 };
     
-    const [startH, startM] = start.split(':').map(Number);
-    const [endH, endM] = end.split(':').map(Number);
+    // Parse time - handle both HH:MM and H:MM formats
+    const parseTime = (timeStr: string): { hours: number; mins: number } | null => {
+      const parts = timeStr.split(':');
+      if (parts.length !== 2) return null;
+      const hours = parseInt(parts[0], 10);
+      const mins = parseInt(parts[1], 10);
+      if (isNaN(hours) || isNaN(mins)) return null;
+      if (hours < 0 || hours > 23 || mins < 0 || mins > 59) return null;
+      return { hours, mins };
+    };
     
-    let totalMinutes = (endH * 60 + endM) - (startH * 60 + startM) - breakMins;
+    const startParsed = parseTime(start);
+    const endParsed = parseTime(end);
+    
+    if (!startParsed || !endParsed) return { total: 0, overtime: 0 };
+    
+    let totalMinutes = (endParsed.hours * 60 + endParsed.mins) - (startParsed.hours * 60 + startParsed.mins) - breakMins;
     if (totalMinutes < 0) totalMinutes += 24 * 60; // Handle overnight shifts
     
     const totalHours = totalMinutes / 60;
     const overtime = Math.max(0, totalHours - 8);
     
     return { total: Math.round(totalHours * 100) / 100, overtime: Math.round(overtime * 100) / 100 };
+  };
+
+  // Format time input as user types
+  const formatTimeInput = (text: string): string => {
+    // Remove non-numeric characters except colon
+    let cleaned = text.replace(/[^0-9:]/g, '');
+    
+    // Auto-insert colon after 2 digits if not present
+    if (cleaned.length === 2 && !cleaned.includes(':')) {
+      cleaned = cleaned + ':';
+    }
+    
+    // Limit to 5 characters (HH:MM)
+    if (cleaned.length > 5) {
+      cleaned = cleaned.substring(0, 5);
+    }
+    
+    return cleaned;
+  };
+
+  const handleStartTimeChange = (text: string) => {
+    setStartTime(formatTimeInput(text));
+  };
+
+  const handleEndTimeChange = (text: string) => {
+    setEndTime(formatTimeInput(text));
+  };
+
+  // Quick time presets
+  const setQuickStartTime = (time: string) => {
+    setStartTime(time);
+  };
+
+  const setQuickEndTime = (time: string) => {
+    setEndTime(time);
   };
 
   const saveEntry = async () => {
