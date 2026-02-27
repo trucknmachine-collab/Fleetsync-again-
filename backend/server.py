@@ -99,8 +99,10 @@ class WeeklySummary(BaseModel):
 DEFAULT_CHECKLIST = [
     "Lights",
     "Brakes",
-    "Tyres",
-    "Fluids",
+    "Tyres/Tracks",
+    "Engine Oil",
+    "Hydraulic Oil",
+    "Coolant",
     "Mirrors",
     "Seatbelts"
 ]
