@@ -61,6 +61,7 @@ const DEFAULT_CHECKLIST: ChecklistItem[] = [
   { name: 'UHF', passed: false, defects: '' },
   { name: 'Leaks', passed: false, defects: '' },
   { name: 'Steering', passed: false, defects: '' },
+  { name: 'Windscreen/Windows', passed: false, defects: '' },
 ];
 
 export default function TodayScreen() {
