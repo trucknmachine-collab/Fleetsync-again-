@@ -669,6 +669,8 @@ const styles = StyleSheet.create({
   checklistText: {
     color: '#ffffff',
     fontSize: 16,
+    flex: 1,
+    flexWrap: 'wrap',
   },
   checklistTextChecked: {
     color: '#4ade80',
