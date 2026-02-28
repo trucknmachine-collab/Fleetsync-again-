@@ -101,13 +101,53 @@ export default function TodayScreen() {
         setLocation(data.location);
         setWorkerName(data.worker_name || 'Worker');
         setFleetNumber(data.fleet_number || '');
+      } else {
+        // No entry for today - try to get previous day's data to pre-fill
+        await fetchPreviousDayData();
       }
     } catch (error) {
       console.log('No existing entry for today');
+      // Try to get previous day's data
+      await fetchPreviousDayData();
     } finally {
       setLoading(false);
     }
   }, [today]);
+
+  // Fetch previous day's data to pre-fill name, fleet number, and engine hours
+  const fetchPreviousDayData = async () => {
+    try {
+      // Get all entries sorted by date descending to find the most recent one
+      const response = await fetch(`${API_URL}/api/entries`);
+      if (response.ok) {
+        const entries = await response.json();
+        if (entries.length > 0) {
+          // Get the most recent entry (first in the list since sorted desc)
+          const lastEntry = entries[0];
+          
+          // Pre-fill worker name and fleet number
+          if (lastEntry.worker_name) {
+            setWorkerName(lastEntry.worker_name);
+          }
+          if (lastEntry.fleet_number) {
+            setFleetNumber(lastEntry.fleet_number);
+          }
+          
+          // Use previous day's engine end hours as today's start hours
+          if (lastEntry.engine_hours_end) {
+            setEngineHoursStart(String(lastEntry.engine_hours_end));
+          }
+          
+          // Pre-fill job/project if it exists
+          if (lastEntry.job_project) {
+            setJobProject(lastEntry.job_project);
+          }
+        }
+      }
+    } catch (error) {
+      console.log('Could not fetch previous day data');
+    }
+  };
 
   useEffect(() => {
     fetchEntry();
