@@ -36,6 +36,7 @@ interface DailyEntry {
   job_project: string;
   engine_hours_start: number | null;
   engine_hours_end: number | null;
+  fuel_usage: number | null;
   notes: string;
 }
 
@@ -243,6 +244,15 @@ export default function HistoryScreen() {
                         <Text style={styles.detailValue}>
                           {entry.engine_hours_start ?? '-'} - {entry.engine_hours_end ?? '-'}
                         </Text>
+                      </View>
+                    )}
+
+                    {/* Fuel Usage */}
+                    {entry.fuel_usage !== null && entry.fuel_usage !== undefined && (
+                      <View style={styles.detailRow}>
+                        <Ionicons name="water-outline" size={18} color="#9ca3af" />
+                        <Text style={styles.detailLabel}>Fuel:</Text>
+                        <Text style={styles.detailValue}>{entry.fuel_usage} L</Text>
                       </View>
                     )}
 

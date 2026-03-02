@@ -45,6 +45,7 @@ interface DailyEntry {
   job_project: string;
   engine_hours_start: number | null;
   engine_hours_end: number | null;
+  fuel_usage: number | null;
   location: LocationData | null;
   notes: string;
 }
@@ -77,6 +78,7 @@ export default function TodayScreen() {
   const [jobProject, setJobProject] = useState('');
   const [engineHoursStart, setEngineHoursStart] = useState('');
   const [engineHoursEnd, setEngineHoursEnd] = useState('');
+  const [fuelUsage, setFuelUsage] = useState('');
   const [notes, setNotes] = useState('');
   const [location, setLocation] = useState<LocationData | null>(null);
   const [workerName, setWorkerName] = useState('Worker');
@@ -97,6 +99,7 @@ export default function TodayScreen() {
         setJobProject(data.job_project || '');
         setEngineHoursStart(data.engine_hours_start ? String(data.engine_hours_start) : '');
         setEngineHoursEnd(data.engine_hours_end ? String(data.engine_hours_end) : '');
+        setFuelUsage(data.fuel_usage ? String(data.fuel_usage) : '');
         setNotes(data.notes || '');
         setLocation(data.location);
         setWorkerName(data.worker_name || 'Worker');
@@ -276,6 +279,7 @@ export default function TodayScreen() {
         job_project: jobProject,
         engine_hours_start: engineHoursStart ? parseFloat(engineHoursStart) : null,
         engine_hours_end: engineHoursEnd ? parseFloat(engineHoursEnd) : null,
+        fuel_usage: fuelUsage ? parseFloat(fuelUsage) : null,
         location: location,
         notes: notes,
       };
@@ -560,6 +564,19 @@ export default function TodayScreen() {
                 />
               </View>
             </View>
+          </View>
+
+          {/* Fuel Usage */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Fuel Usage</Text>
+            <TextInput
+              style={styles.input}
+              value={fuelUsage}
+              onChangeText={setFuelUsage}
+              placeholder="Enter litres"
+              placeholderTextColor="#6b7280"
+              keyboardType="decimal-pad"
+            />
           </View>
 
           {/* Location */}

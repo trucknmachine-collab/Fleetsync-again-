@@ -37,6 +37,7 @@ interface DailyEntry {
   job_project: string;
   engine_hours_start: number | null;
   engine_hours_end: number | null;
+  fuel_usage: number | null;
   notes: string;
 }
 
@@ -143,6 +144,9 @@ export default function WeekScreen() {
         }
         if (entry.engine_hours_start !== null && entry.engine_hours_end !== null) {
           text += `  Engine Hours: ${entry.engine_hours_start} - ${entry.engine_hours_end}\n`;
+        }
+        if (entry.fuel_usage !== null && entry.fuel_usage !== undefined) {
+          text += `  Fuel Usage: ${entry.fuel_usage} L\n`;
         }
         text += `  Pre-Start: ${entry.pre_start_completed ? 'Completed' : 'Not Completed'}\n`;
         

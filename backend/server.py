@@ -52,6 +52,7 @@ class DailyEntry(BaseModel):
     job_project: str = ""
     engine_hours_start: Optional[float] = None
     engine_hours_end: Optional[float] = None
+    fuel_usage: Optional[float] = None  # Litres
     location: Optional[Location] = None
     notes: str = ""
     created_at: datetime = Field(default_factory=datetime.utcnow)
@@ -71,6 +72,7 @@ class DailyEntryCreate(BaseModel):
     job_project: str = ""
     engine_hours_start: Optional[float] = None
     engine_hours_end: Optional[float] = None
+    fuel_usage: Optional[float] = None
     location: Optional[Location] = None
     notes: str = ""
 
@@ -87,6 +89,7 @@ class DailyEntryUpdate(BaseModel):
     job_project: Optional[str] = None
     engine_hours_start: Optional[float] = None
     engine_hours_end: Optional[float] = None
+    fuel_usage: Optional[float] = None
     location: Optional[Location] = None
     notes: Optional[str] = None
 
