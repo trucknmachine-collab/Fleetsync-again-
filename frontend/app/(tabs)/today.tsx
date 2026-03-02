@@ -15,8 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { format } from 'date-fns';
-
-const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || '';
+import { useOffline } from '../../contexts/OfflineContext';
 
 interface ChecklistItem {
   name: string;
@@ -67,6 +66,7 @@ const DEFAULT_CHECKLIST: ChecklistItem[] = [
 
 export default function TodayScreen() {
   const today = format(new Date(), 'yyyy-MM-dd');
+  const { saveEntry: saveEntryOffline, getEntry, getRecentEntry, isOnline } = useOffline();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [entry, setEntry] = useState<DailyEntry | null>(null);
@@ -87,11 +87,10 @@ export default function TodayScreen() {
   const fetchEntry = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_URL}/api/entries/${today}`);
-      if (response.ok) {
-        const data = await response.json();
+      const data = await getEntry(today);
+      if (data) {
         setEntry(data);
-        setChecklist(data.pre_start_checklist.length > 0 ? data.pre_start_checklist : DEFAULT_CHECKLIST);
+        setChecklist(data.pre_start_checklist && data.pre_start_checklist.length > 0 ? data.pre_start_checklist : DEFAULT_CHECKLIST);
         setPreStartCompleted(data.pre_start_completed);
         setStartTime(data.start_time || '');
         setEndTime(data.end_time || '');
@@ -115,36 +114,29 @@ export default function TodayScreen() {
     } finally {
       setLoading(false);
     }
-  }, [today]);
+  }, [today, getEntry]);
 
   // Fetch previous day's data to pre-fill name, fleet number, and engine hours
   const fetchPreviousDayData = async () => {
     try {
-      // Get all entries sorted by date descending to find the most recent one
-      const response = await fetch(`${API_URL}/api/entries`);
-      if (response.ok) {
-        const entries = await response.json();
-        if (entries.length > 0) {
-          // Get the most recent entry (first in the list since sorted desc)
-          const lastEntry = entries[0];
-          
-          // Pre-fill worker name and fleet number
-          if (lastEntry.worker_name) {
-            setWorkerName(lastEntry.worker_name);
-          }
-          if (lastEntry.fleet_number) {
-            setFleetNumber(lastEntry.fleet_number);
-          }
-          
-          // Use previous day's engine end hours as today's start hours
-          if (lastEntry.engine_hours_end) {
-            setEngineHoursStart(String(lastEntry.engine_hours_end));
-          }
-          
-          // Pre-fill job/project if it exists
-          if (lastEntry.job_project) {
-            setJobProject(lastEntry.job_project);
-          }
+      const lastEntry = await getRecentEntry();
+      if (lastEntry) {
+        // Pre-fill worker name and fleet number
+        if (lastEntry.worker_name) {
+          setWorkerName(lastEntry.worker_name);
+        }
+        if (lastEntry.fleet_number) {
+          setFleetNumber(lastEntry.fleet_number);
+        }
+        
+        // Use previous day's engine end hours as today's start hours
+        if (lastEntry.engine_hours_end) {
+          setEngineHoursStart(String(lastEntry.engine_hours_end));
+        }
+        
+        // Pre-fill job/project if it exists
+        if (lastEntry.job_project) {
+          setJobProject(lastEntry.job_project);
         }
       }
     } catch (error) {
@@ -284,28 +276,14 @@ export default function TodayScreen() {
         notes: notes,
       };
 
-      let response;
-      if (entry) {
-        response = await fetch(`${API_URL}/api/entries/${today}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(entryData),
-        });
-      } else {
-        response = await fetch(`${API_URL}/api/entries`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(entryData),
-        });
-      }
-
-      if (response.ok) {
-        const data = await response.json();
-        setEntry(data);
+      const isNew = !entry;
+      const savedEntry = await saveEntryOffline(today, entryData, isNew);
+      setEntry(savedEntry);
+      
+      if (isOnline) {
         Alert.alert('Success', 'Entry saved successfully');
       } else {
-        const error = await response.json();
-        Alert.alert('Error', error.detail || 'Failed to save entry');
+        Alert.alert('Saved Offline', 'Entry saved locally. Will sync when back online.');
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to save entry');

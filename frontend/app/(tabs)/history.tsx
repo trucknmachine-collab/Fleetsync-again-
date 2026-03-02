@@ -12,8 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { format, parseISO } from 'date-fns';
-
-const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || '';
+import { useOffline } from '../../contexts/OfflineContext';
 
 interface ChecklistItem {
   name: string;
@@ -41,6 +40,7 @@ interface DailyEntry {
 }
 
 export default function HistoryScreen() {
+  const { getAllEntries, deleteEntry: deleteEntryOffline, isOnline } = useOffline();
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [entries, setEntries] = useState<DailyEntry[]>([]);
@@ -48,18 +48,15 @@ export default function HistoryScreen() {
 
   const fetchEntries = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/api/entries`);
-      if (response.ok) {
-        const data = await response.json();
-        setEntries(data);
-      }
+      const data = await getAllEntries();
+      setEntries(data);
     } catch (error) {
       console.error('Error fetching entries:', error);
     } finally {
       setLoading(false);
       setRefreshing(false);
     }
-  }, []);
+  }, [getAllEntries]);
 
   useEffect(() => {
     fetchEntries();
@@ -70,7 +67,7 @@ export default function HistoryScreen() {
     fetchEntries();
   };
 
-  const deleteEntry = async (date: string) => {
+  const handleDeleteEntry = async (date: string) => {
     Alert.alert(
       'Delete Entry',
       'Are you sure you want to delete this entry?',
@@ -81,15 +78,9 @@ export default function HistoryScreen() {
           style: 'destructive',
           onPress: async () => {
             try {
-              const response = await fetch(`${API_URL}/api/entries/${date}`, {
-                method: 'DELETE',
-              });
-              if (response.ok) {
-                setEntries(entries.filter(e => e.date !== date));
-                Alert.alert('Success', 'Entry deleted successfully');
-              } else {
-                Alert.alert('Error', 'Failed to delete entry');
-              }
+              await deleteEntryOffline(date);
+              setEntries(entries.filter(e => e.date !== date));
+              Alert.alert('Success', isOnline ? 'Entry deleted successfully' : 'Entry deleted locally');
             } catch (error) {
               Alert.alert('Error', 'Failed to delete entry');
             }
@@ -287,7 +278,7 @@ export default function HistoryScreen() {
                     {/* Delete Button */}
                     <TouchableOpacity
                       style={styles.deleteButton}
-                      onPress={() => deleteEntry(entry.date)}
+                      onPress={() => handleDeleteEntry(entry.date)}
                     >
                       <Ionicons name="trash-outline" size={18} color="#ef4444" />
                       <Text style={styles.deleteButtonText}>Delete Entry</Text>
