@@ -1,0 +1,93 @@
+{
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "success": "نجاح",
+    "error": "خطأ",
+    "loading": "جاري التحميل...",
+    "today": "اليوم",
+    "week": "الأسبوع",
+    "history": "السجل"
+  },
+  "today": {
+    "title": "الإدخال اليومي",
+    "workerName": "اسم العامل",
+    "workerNamePlaceholder": "أدخل اسمك",
+    "fleetNumber": "رقم الأسطول",
+    "fleetNumberPlaceholder": "أدخل رقم الأسطول/المركبة",
+    "preStartChecklist": "قائمة فحص ما قبل التشغيل",
+    "completed": "مكتمل",
+    "defectsPlaceholder": "العيوب (إن وجدت)",
+    "completePreStart": "إكمال فحص ما قبل التشغيل",
+    "incompleteChecklist": "القائمة غير مكتملة",
+    "incompleteMessage": "لم يتم تحديد جميع العناصر. هل تريد المتابعة؟",
+    "continue": "متابعة",
+    "timesheet": "جدول الدوام",
+    "startTime": "وقت البدء",
+    "endTime": "وقت الانتهاء",
+    "breakMins": "الاستراحة (دقيقة)",
+    "totalHours": "إجمالي الساعات",
+    "overtimeHours": "ساعات إضافية",
+    "jobProject": "العمل / المشروع",
+    "jobProjectPlaceholder": "أدخل اسم العمل أو المشروع",
+    "engineHours": "ساعات المحرك",
+    "start": "البداية",
+    "end": "النهاية",
+    "fuelUsage": "استهلاك الوقود",
+    "fuelUsagePlaceholder": "أدخل اللترات",
+    "location": "الموقع",
+    "getLocation": "الحصول على الموقع الحالي",
+    "notes": "ملاحظات",
+    "notesPlaceholder": "ملاحظات إضافية...",
+    "savedSuccess": "تم حفظ الإدخال بنجاح",
+    "savedOffline": "تم الحفظ محلياً. ستتم المزامنة عند الاتصال.",
+    "saveFailed": "فشل في الحفظ",
+    "defectsList": "قائمة العيوب"
+  },
+  "week": {
+    "title": "الملخص الأسبوعي",
+    "totalHours": "إجمالي الساعات",
+    "overtime": "إضافي",
+    "daysWorked": "أيام العمل",
+    "dailyBreakdown": "التفصيل اليومي",
+    "noEntry": "لا يوجد إدخال",
+    "preStartDone": "فحص ما قبل التشغيل مكتمل",
+    "preStartPending": "فحص ما قبل التشغيل معلق",
+    "shareWeeklySummary": "مشاركة الملخص الأسبوعي",
+    "noDataToShare": "لا توجد بيانات لهذا الأسبوع",
+    "shareFailed": "فشل في المشاركة"
+  },
+  "history": {
+    "title": "الإدخالات السابقة",
+    "entries": "{{count}} إدخالات",
+    "entry": "{{count}} إدخال",
+    "noEntriesYet": "لا توجد إدخالات بعد",
+    "startByCreating": "ابدأ بإنشاء إدخال اليوم",
+    "deleteEntry": "حذف الإدخال",
+    "deleteConfirm": "هل أنت متأكد من حذف هذا الإدخال؟"
+  },
+  "checklist": {
+    "lights": "الأضواء",
+    "brakes": "الفرامل",
+    "tyresTracks": "الإطارات/الجنازير",
+    "engineOil": "زيت المحرك",
+    "hydraulicOil": "الزيت الهيدروليكي",
+    "coolant": "سائل التبريد",
+    "mirrors": "المرايا",
+    "seatbelts": "أحزمة الأمان",
+    "uhf": "جهاز اللاسلكي",
+    "leaks": "التسريبات",
+    "steering": "التوجيه",
+    "windscreenWindows": "الزجاج الأمامي/النوافذ"
+  },
+  "offline": {
+    "offlineMode": "وضع عدم الاتصال",
+    "syncing": "جاري المزامنة...",
+    "pending": "{{count}} معلق"
+  },
+  "settings": {
+    "language": "اللغة",
+    "selectLanguage": "اختر اللغة"
+  }
+}

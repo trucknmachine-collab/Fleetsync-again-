@@ -10,27 +10,30 @@ import pt from '../locales/pt.json';
 import zh from '../locales/zh.json';
 import hi from '../locales/hi.json';
 import ru from '../locales/ru.json';
+import ar from '../locales/ar.json';
 
 const LANGUAGE_KEY = 'app_language';
 
 export const languages = [
   { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
   { code: 'es', name: 'Spanish', nativeName: 'Español' },
   { code: 'fr', name: 'French', nativeName: 'Français' },
-  { code: 'pt', name: 'Portuguese', nativeName: 'Português' },
-  { code: 'zh', name: 'Chinese', nativeName: '中文' },
   { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
+  { code: 'pt', name: 'Portuguese', nativeName: 'Português' },
   { code: 'ru', name: 'Russian', nativeName: 'Русский' },
+  { code: 'zh', name: 'Chinese', nativeName: '中文' },
 ];
 
 const resources = {
   en: { translation: en },
+  ar: { translation: ar },
   es: { translation: es },
   fr: { translation: fr },
-  pt: { translation: pt },
-  zh: { translation: zh },
   hi: { translation: hi },
+  pt: { translation: pt },
   ru: { translation: ru },
+  zh: { translation: zh },
 };
 
 // Get saved language or device language
