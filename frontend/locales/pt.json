@@ -1,0 +1,93 @@
+{
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "success": "Sucesso",
+    "error": "Erro",
+    "loading": "Carregando...",
+    "today": "Hoje",
+    "week": "Semana",
+    "history": "Histórico"
+  },
+  "today": {
+    "title": "Entrada Diária",
+    "workerName": "Nome do Trabalhador",
+    "workerNamePlaceholder": "Digite seu nome",
+    "fleetNumber": "Número da Frota",
+    "fleetNumberPlaceholder": "Digite o número da frota/veículo",
+    "preStartChecklist": "Lista de Verificação Pré-Partida",
+    "completed": "Concluído",
+    "defectsPlaceholder": "Defeitos (se houver)",
+    "completePreStart": "Completar Pré-Partida",
+    "incompleteChecklist": "Lista Incompleta",
+    "incompleteMessage": "Nem todos os itens estão marcados. Deseja continuar mesmo assim?",
+    "continue": "Continuar",
+    "timesheet": "Folha de Ponto",
+    "startTime": "Hora de Início",
+    "endTime": "Hora de Término",
+    "breakMins": "Intervalo (min)",
+    "totalHours": "Horas Totais",
+    "overtimeHours": "Horas Extras",
+    "jobProject": "Trabalho / Projeto",
+    "jobProjectPlaceholder": "Digite o nome do trabalho ou projeto",
+    "engineHours": "Horas do Motor",
+    "start": "Início",
+    "end": "Fim",
+    "fuelUsage": "Consumo de Combustível",
+    "fuelUsagePlaceholder": "Digite litros",
+    "location": "Localização",
+    "getLocation": "Obter Localização Atual",
+    "notes": "Notas",
+    "notesPlaceholder": "Notas adicionais...",
+    "savedSuccess": "Entrada salva com sucesso",
+    "savedOffline": "Entrada salva localmente. Sincronizará quando online.",
+    "saveFailed": "Falha ao salvar entrada",
+    "defectsList": "Lista de Defeitos"
+  },
+  "week": {
+    "title": "Resumo Semanal",
+    "totalHours": "Horas Totais",
+    "overtime": "Horas Extras",
+    "daysWorked": "Dias Trabalhados",
+    "dailyBreakdown": "Detalhamento Diário",
+    "noEntry": "Sem entrada",
+    "preStartDone": "Pré-Partida Feita",
+    "preStartPending": "Pré-Partida Pendente",
+    "shareWeeklySummary": "Compartilhar Resumo Semanal",
+    "noDataToShare": "Sem dados para compartilhar esta semana",
+    "shareFailed": "Falha ao compartilhar"
+  },
+  "history": {
+    "title": "Entradas Anteriores",
+    "entries": "{{count}} Entradas",
+    "entry": "{{count}} Entrada",
+    "noEntriesYet": "Nenhuma entrada ainda",
+    "startByCreating": "Comece criando a entrada de hoje",
+    "deleteEntry": "Excluir Entrada",
+    "deleteConfirm": "Tem certeza de que deseja excluir esta entrada?"
+  },
+  "checklist": {
+    "lights": "Luzes",
+    "brakes": "Freios",
+    "tyresTracks": "Pneus/Esteiras",
+    "engineOil": "Óleo do Motor",
+    "hydraulicOil": "Óleo Hidráulico",
+    "coolant": "Líquido de Arrefecimento",
+    "mirrors": "Espelhos",
+    "seatbelts": "Cintos",
+    "uhf": "UHF",
+    "leaks": "Vazamentos",
+    "steering": "Direção",
+    "windscreenWindows": "Para-brisa/Janelas"
+  },
+  "offline": {
+    "offlineMode": "Modo Offline",
+    "syncing": "Sincronizando...",
+    "pending": "{{count}} pendentes"
+  },
+  "settings": {
+    "language": "Idioma",
+    "selectLanguage": "Selecionar Idioma"
+  }
+}

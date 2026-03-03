@@ -1,0 +1,93 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "success": "Succès",
+    "error": "Erreur",
+    "loading": "Chargement...",
+    "today": "Aujourd'hui",
+    "week": "Semaine",
+    "history": "Historique"
+  },
+  "today": {
+    "title": "Entrée Quotidienne",
+    "workerName": "Nom du Travailleur",
+    "workerNamePlaceholder": "Entrez votre nom",
+    "fleetNumber": "Numéro de Flotte",
+    "fleetNumberPlaceholder": "Entrez le numéro de flotte/véhicule",
+    "preStartChecklist": "Liste de Contrôle Pré-Démarrage",
+    "completed": "Terminé",
+    "defectsPlaceholder": "Défauts (le cas échéant)",
+    "completePreStart": "Terminer le Pré-Démarrage",
+    "incompleteChecklist": "Liste Incomplète",
+    "incompleteMessage": "Tous les éléments ne sont pas cochés. Voulez-vous continuer quand même?",
+    "continue": "Continuer",
+    "timesheet": "Feuille de Temps",
+    "startTime": "Heure de Début",
+    "endTime": "Heure de Fin",
+    "breakMins": "Pause (min)",
+    "totalHours": "Heures Totales",
+    "overtimeHours": "Heures Supplémentaires",
+    "jobProject": "Travail / Projet",
+    "jobProjectPlaceholder": "Entrez le nom du travail ou projet",
+    "engineHours": "Heures Moteur",
+    "start": "Début",
+    "end": "Fin",
+    "fuelUsage": "Consommation de Carburant",
+    "fuelUsagePlaceholder": "Entrez les litres",
+    "location": "Emplacement",
+    "getLocation": "Obtenir l'Emplacement Actuel",
+    "notes": "Notes",
+    "notesPlaceholder": "Notes supplémentaires...",
+    "savedSuccess": "Entrée enregistrée avec succès",
+    "savedOffline": "Entrée enregistrée localement. Synchronisation lors de la connexion.",
+    "saveFailed": "Échec de l'enregistrement",
+    "defectsList": "Liste des Défauts"
+  },
+  "week": {
+    "title": "Résumé Hebdomadaire",
+    "totalHours": "Heures Totales",
+    "overtime": "Heures Supp.",
+    "daysWorked": "Jours Travaillés",
+    "dailyBreakdown": "Détail Quotidien",
+    "noEntry": "Pas d'entrée",
+    "preStartDone": "Pré-Démarrage Fait",
+    "preStartPending": "Pré-Démarrage En Attente",
+    "shareWeeklySummary": "Partager le Résumé Hebdomadaire",
+    "noDataToShare": "Pas de données à partager cette semaine",
+    "shareFailed": "Échec du partage"
+  },
+  "history": {
+    "title": "Entrées Passées",
+    "entries": "{{count}} Entrées",
+    "entry": "{{count}} Entrée",
+    "noEntriesYet": "Pas encore d'entrées",
+    "startByCreating": "Commencez par créer l'entrée d'aujourd'hui",
+    "deleteEntry": "Supprimer l'Entrée",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette entrée?"
+  },
+  "checklist": {
+    "lights": "Feux",
+    "brakes": "Freins",
+    "tyresTracks": "Pneus/Chenilles",
+    "engineOil": "Huile Moteur",
+    "hydraulicOil": "Huile Hydraulique",
+    "coolant": "Liquide de Refroidissement",
+    "mirrors": "Rétroviseurs",
+    "seatbelts": "Ceintures",
+    "uhf": "UHF",
+    "leaks": "Fuites",
+    "steering": "Direction",
+    "windscreenWindows": "Pare-brise/Vitres"
+  },
+  "offline": {
+    "offlineMode": "Mode Hors Ligne",
+    "syncing": "Synchronisation...",
+    "pending": "{{count}} en attente"
+  },
+  "settings": {
+    "language": "Langue",
+    "selectLanguage": "Sélectionner la Langue"
+  }
+}

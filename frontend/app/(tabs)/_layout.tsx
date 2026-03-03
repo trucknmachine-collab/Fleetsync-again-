@@ -2,10 +2,13 @@ import React from 'react';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Platform, View, Text, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useOffline } from '../../contexts/OfflineContext';
+import '../../utils/i18n';
 
 function OfflineIndicator() {
   const { isOnline, pendingCount, isSyncing } = useOffline();
+  const { t } = useTranslation();
   
   if (isOnline && pendingCount === 0) return null;
   
@@ -18,16 +21,18 @@ function OfflineIndicator() {
       />
       <Text style={[styles.offlineText, { color: isOnline ? '#4ade80' : '#f59e0b' }]}>
         {!isOnline 
-          ? 'Offline Mode' 
+          ? t('offline.offlineMode')
           : isSyncing 
-            ? 'Syncing...' 
-            : `${pendingCount} pending`}
+            ? t('offline.syncing')
+            : t('offline.pending', { count: pendingCount })}
       </Text>
     </View>
   );
 }
 
 export default function TabLayout() {
+  const { t } = useTranslation();
+  
   return (
     <>
       <OfflineIndicator />
@@ -59,8 +64,8 @@ export default function TabLayout() {
         <Tabs.Screen
           name="today"
           options={{
-            title: 'Today',
-            headerTitle: 'Daily Entry',
+            title: t('common.today'),
+            headerTitle: t('today.title'),
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="today-outline" size={size} color={color} />
             ),
@@ -69,8 +74,8 @@ export default function TabLayout() {
         <Tabs.Screen
           name="week"
           options={{
-            title: 'Week',
-            headerTitle: 'Weekly Summary',
+            title: t('common.week'),
+            headerTitle: t('week.title'),
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="calendar-outline" size={size} color={color} />
             ),
@@ -79,10 +84,20 @@ export default function TabLayout() {
         <Tabs.Screen
           name="history"
           options={{
-            title: 'History',
-            headerTitle: 'Past Entries',
+            title: t('common.history'),
+            headerTitle: t('history.title'),
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="time-outline" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            title: t('settings.language'),
+            headerTitle: t('settings.language'),
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="settings-outline" size={size} color={color} />
             ),
           }}
         />

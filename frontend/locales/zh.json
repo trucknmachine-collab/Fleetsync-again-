@@ -1,0 +1,93 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "success": "成功",
+    "error": "错误",
+    "loading": "加载中...",
+    "today": "今天",
+    "week": "本周",
+    "history": "历史"
+  },
+  "today": {
+    "title": "每日记录",
+    "workerName": "工人姓名",
+    "workerNamePlaceholder": "输入您的姓名",
+    "fleetNumber": "车队编号",
+    "fleetNumberPlaceholder": "输入车队/车辆编号",
+    "preStartChecklist": "启动前检查清单",
+    "completed": "已完成",
+    "defectsPlaceholder": "缺陷（如有）",
+    "completePreStart": "完成启动前检查",
+    "incompleteChecklist": "清单未完成",
+    "incompleteMessage": "并非所有项目都已检查。是否继续？",
+    "continue": "继续",
+    "timesheet": "工时表",
+    "startTime": "开始时间",
+    "endTime": "结束时间",
+    "breakMins": "休息（分钟）",
+    "totalHours": "总工时",
+    "overtimeHours": "加班时间",
+    "jobProject": "工作/项目",
+    "jobProjectPlaceholder": "输入工作或项目名称",
+    "engineHours": "发动机小时",
+    "start": "开始",
+    "end": "结束",
+    "fuelUsage": "燃油消耗",
+    "fuelUsagePlaceholder": "输入升数",
+    "location": "位置",
+    "getLocation": "获取当前位置",
+    "notes": "备注",
+    "notesPlaceholder": "附加说明...",
+    "savedSuccess": "记录保存成功",
+    "savedOffline": "记录已本地保存。联网后将同步。",
+    "saveFailed": "保存失败",
+    "defectsList": "缺陷清单"
+  },
+  "week": {
+    "title": "周报",
+    "totalHours": "总工时",
+    "overtime": "加班",
+    "daysWorked": "工作天数",
+    "dailyBreakdown": "每日明细",
+    "noEntry": "无记录",
+    "preStartDone": "启动前检查完成",
+    "preStartPending": "启动前检查待完成",
+    "shareWeeklySummary": "分享周报",
+    "noDataToShare": "本周无数据可分享",
+    "shareFailed": "分享失败"
+  },
+  "history": {
+    "title": "历史记录",
+    "entries": "{{count}} 条记录",
+    "entry": "{{count}} 条记录",
+    "noEntriesYet": "暂无记录",
+    "startByCreating": "开始创建今天的记录",
+    "deleteEntry": "删除记录",
+    "deleteConfirm": "确定要删除此记录吗？"
+  },
+  "checklist": {
+    "lights": "灯光",
+    "brakes": "刹车",
+    "tyresTracks": "轮胎/履带",
+    "engineOil": "机油",
+    "hydraulicOil": "液压油",
+    "coolant": "冷却液",
+    "mirrors": "后视镜",
+    "seatbelts": "安全带",
+    "uhf": "超高频",
+    "leaks": "泄漏",
+    "steering": "转向",
+    "windscreenWindows": "挡风玻璃/车窗"
+  },
+  "offline": {
+    "offlineMode": "离线模式",
+    "syncing": "同步中...",
+    "pending": "{{count}} 待同步"
+  },
+  "settings": {
+    "language": "语言",
+    "selectLanguage": "选择语言"
+  }
+}
