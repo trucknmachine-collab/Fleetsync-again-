@@ -1,0 +1,93 @@
+{
+  "common": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "success": "Успех",
+    "error": "Ошибка",
+    "loading": "Загрузка...",
+    "today": "Сегодня",
+    "week": "Неделя",
+    "history": "История"
+  },
+  "today": {
+    "title": "Ежедневная запись",
+    "workerName": "Имя работника",
+    "workerNamePlaceholder": "Введите ваше имя",
+    "fleetNumber": "Номер автопарка",
+    "fleetNumberPlaceholder": "Введите номер автопарка/транспорта",
+    "preStartChecklist": "Предпусковой контроль",
+    "completed": "Завершено",
+    "defectsPlaceholder": "Дефекты (если есть)",
+    "completePreStart": "Завершить предпусковой контроль",
+    "incompleteChecklist": "Неполный список",
+    "incompleteMessage": "Не все пункты отмечены. Продолжить?",
+    "continue": "Продолжить",
+    "timesheet": "Табель",
+    "startTime": "Время начала",
+    "endTime": "Время окончания",
+    "breakMins": "Перерыв (мин)",
+    "totalHours": "Всего часов",
+    "overtimeHours": "Сверхурочные",
+    "jobProject": "Работа / Проект",
+    "jobProjectPlaceholder": "Введите название работы или проекта",
+    "engineHours": "Моточасы",
+    "start": "Начало",
+    "end": "Конец",
+    "fuelUsage": "Расход топлива",
+    "fuelUsagePlaceholder": "Введите литры",
+    "location": "Местоположение",
+    "getLocation": "Получить текущее местоположение",
+    "notes": "Заметки",
+    "notesPlaceholder": "Дополнительные заметки...",
+    "savedSuccess": "Запись успешно сохранена",
+    "savedOffline": "Запись сохранена локально. Синхронизация при подключении.",
+    "saveFailed": "Ошибка сохранения",
+    "defectsList": "Список дефектов"
+  },
+  "week": {
+    "title": "Недельный отчет",
+    "totalHours": "Всего часов",
+    "overtime": "Сверхурочные",
+    "daysWorked": "Рабочих дней",
+    "dailyBreakdown": "Ежедневная сводка",
+    "noEntry": "Нет записи",
+    "preStartDone": "Предпусковой выполнен",
+    "preStartPending": "Предпусковой ожидает",
+    "shareWeeklySummary": "Поделиться недельным отчетом",
+    "noDataToShare": "Нет данных для этой недели",
+    "shareFailed": "Ошибка отправки"
+  },
+  "history": {
+    "title": "Прошлые записи",
+    "entries": "{{count}} записей",
+    "entry": "{{count}} запись",
+    "noEntriesYet": "Записей пока нет",
+    "startByCreating": "Начните с создания сегодняшней записи",
+    "deleteEntry": "Удалить запись",
+    "deleteConfirm": "Вы уверены, что хотите удалить эту запись?"
+  },
+  "checklist": {
+    "lights": "Фары",
+    "brakes": "Тормоза",
+    "tyresTracks": "Шины/Гусеницы",
+    "engineOil": "Моторное масло",
+    "hydraulicOil": "Гидравлическое масло",
+    "coolant": "Охлаждающая жидкость",
+    "mirrors": "Зеркала",
+    "seatbelts": "Ремни безопасности",
+    "uhf": "Рация",
+    "leaks": "Утечки",
+    "steering": "Рулевое управление",
+    "windscreenWindows": "Лобовое стекло/Окна"
+  },
+  "offline": {
+    "offlineMode": "Автономный режим",
+    "syncing": "Синхронизация...",
+    "pending": "{{count}} ожидают"
+  },
+  "settings": {
+    "language": "Язык",
+    "selectLanguage": "Выбрать язык"
+  }
+}

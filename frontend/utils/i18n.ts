@@ -8,6 +8,8 @@ import es from '../locales/es.json';
 import fr from '../locales/fr.json';
 import pt from '../locales/pt.json';
 import zh from '../locales/zh.json';
+import hi from '../locales/hi.json';
+import ru from '../locales/ru.json';
 
 const LANGUAGE_KEY = 'app_language';
 
@@ -17,6 +19,8 @@ export const languages = [
   { code: 'fr', name: 'French', nativeName: 'Français' },
   { code: 'pt', name: 'Portuguese', nativeName: 'Português' },
   { code: 'zh', name: 'Chinese', nativeName: '中文' },
+  { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
+  { code: 'ru', name: 'Russian', nativeName: 'Русский' },
 ];
 
 const resources = {
@@ -25,6 +29,8 @@ const resources = {
   fr: { translation: fr },
   pt: { translation: pt },
   zh: { translation: zh },
+  hi: { translation: hi },
+  ru: { translation: ru },
 };
 
 // Get saved language or device language
