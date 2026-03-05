@@ -170,11 +170,49 @@ export default function EditEntryScreen() {
     setChecklist(newChecklist);
   };
 
+  // Format time input as user types
+  const formatTimeInput = (text: string): string => {
+    // Remove non-numeric characters except colon
+    let cleaned = text.replace(/[^0-9:]/g, '');
+    
+    // Auto-insert colon after 2 digits if not present
+    if (cleaned.length === 2 && !cleaned.includes(':')) {
+      cleaned = cleaned + ':';
+    }
+    
+    // Limit to 5 characters (HH:MM)
+    if (cleaned.length > 5) {
+      cleaned = cleaned.substring(0, 5);
+    }
+    
+    return cleaned;
+  };
+
+  const handleStartTimeChange = (text: string) => {
+    setStartTime(formatTimeInput(text));
+  };
+
+  const handleEndTimeChange = (text: string) => {
+    setEndTime(formatTimeInput(text));
+  };
+
+  // Quick time presets
+  const setQuickStartTime = (time: string) => {
+    setStartTime(time);
+  };
+
+  const setQuickEndTime = (time: string) => {
+    setEndTime(time);
+  };
+
   const saveEntry = async () => {
     try {
       setSaving(true);
       const breakMins = parseInt(breakDuration) || 0;
       const { total, overtime } = calculateHours(startTime, endTime, breakMins);
+
+      console.log('Saving entry for date:', editDate, 'isNew:', isNewEntry);
+      console.log('Hours calculated - total:', total, 'overtime:', overtime);
 
       const entryData = {
         date: editDate,
@@ -195,12 +233,17 @@ export default function EditEntryScreen() {
         notes: notes,
       };
 
-      await saveEntryOffline(editDate, entryData, isNewEntry);
+      console.log('Entry data to save:', JSON.stringify(entryData, null, 2));
+
+      const result = await saveEntryOffline(editDate, entryData, isNewEntry);
+      console.log('Save result:', result);
+      
       Alert.alert('Success', isNewEntry ? 'Entry created successfully' : 'Entry updated successfully', [
         { text: 'OK', onPress: () => router.back() }
       ]);
     } catch (error) {
-      Alert.alert('Error', 'Failed to save entry');
+      console.error('Error saving entry:', error);
+      Alert.alert('Error', 'Failed to save entry: ' + (error as Error).message);
     } finally {
       setSaving(false);
     }
@@ -301,22 +344,46 @@ export default function EditEntryScreen() {
                 <TextInput
                   style={styles.input}
                   value={startTime}
-                  onChangeText={setStartTime}
+                  onChangeText={handleStartTimeChange}
                   placeholder="HH:MM"
                   placeholderTextColor="#6b7280"
                   keyboardType="numeric"
+                  maxLength={5}
                 />
+                <View style={styles.quickTimeRow}>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickStartTime('06:00')}>
+                    <Text style={styles.quickTimeBtnText}>6am</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickStartTime('07:00')}>
+                    <Text style={styles.quickTimeBtnText}>7am</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickStartTime('08:00')}>
+                    <Text style={styles.quickTimeBtnText}>8am</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
               <View style={styles.timeInput}>
                 <Text style={styles.inputLabel}>End Time</Text>
                 <TextInput
                   style={styles.input}
                   value={endTime}
-                  onChangeText={setEndTime}
+                  onChangeText={handleEndTimeChange}
                   placeholder="HH:MM"
                   placeholderTextColor="#6b7280"
                   keyboardType="numeric"
+                  maxLength={5}
                 />
+                <View style={styles.quickTimeRow}>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickEndTime('15:00')}>
+                    <Text style={styles.quickTimeBtnText}>3pm</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickEndTime('16:00')}>
+                    <Text style={styles.quickTimeBtnText}>4pm</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.quickTimeBtn} onPress={() => setQuickEndTime('17:00')}>
+                    <Text style={styles.quickTimeBtnText}>5pm</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
             <View style={styles.timeRow}>
@@ -339,6 +406,13 @@ export default function EditEntryScreen() {
                   </Text>
                 </View>
               </View>
+            </View>
+            {/* Overtime Display */}
+            <View style={styles.overtimeRow}>
+              <Text style={styles.overtimeLabel}>Overtime Hours:</Text>
+              <Text style={styles.overtimeValue}>
+                {calculateHours(startTime, endTime, parseInt(breakDuration) || 0).overtime.toFixed(2)}
+              </Text>
             </View>
           </View>
 
@@ -527,6 +601,42 @@ const styles = StyleSheet.create({
   },
   hoursText: {
     color: '#4ade80',
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  quickTimeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 8,
+    gap: 4,
+  },
+  quickTimeBtn: {
+    flex: 1,
+    backgroundColor: '#3d3d5c',
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    borderRadius: 6,
+    alignItems: 'center',
+  },
+  quickTimeBtnText: {
+    color: '#9ca3af',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  overtimeRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#1a1a2e',
+    borderRadius: 8,
+    padding: 14,
+  },
+  overtimeLabel: {
+    color: '#9ca3af',
+    fontSize: 14,
+  },
+  overtimeValue: {
+    color: '#f59e0b',
     fontSize: 18,
     fontWeight: '700',
   },
