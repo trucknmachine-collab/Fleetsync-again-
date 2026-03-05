@@ -87,8 +87,9 @@ export default function EditEntryScreen() {
         setIsNewEntry(false);
         setChecklist(data.pre_start_checklist?.length > 0 ? data.pre_start_checklist : DEFAULT_CHECKLIST);
         setPreStartCompleted(data.pre_start_completed || false);
-        setStartTime(data.start_time || '');
-        setEndTime(data.end_time || '');
+        // Normalize times to HH:MM format
+        setStartTime(normalizeTime(data.start_time));
+        setEndTime(normalizeTime(data.end_time));
         setBreakDuration(String(data.break_duration || 0));
         setJobProject(data.job_project || '');
         setEngineHoursStart(data.engine_hours_start ? String(data.engine_hours_start) : '');
@@ -136,11 +137,28 @@ export default function EditEntryScreen() {
     if (!start || !end) return { total: 0, overtime: 0 };
     
     const parseTime = (timeStr: string): { hours: number; mins: number } | null => {
-      const parts = timeStr.split(':');
-      if (parts.length !== 2) return null;
-      const hours = parseInt(parts[0], 10);
-      const mins = parseInt(parts[1], 10);
+      // Handle both HH:MM and HHMM formats
+      let hours: number, mins: number;
+      
+      if (timeStr.includes(':')) {
+        const parts = timeStr.split(':');
+        if (parts.length !== 2) return null;
+        hours = parseInt(parts[0], 10);
+        mins = parseInt(parts[1], 10);
+      } else if (timeStr.length === 4) {
+        // HHMM format
+        hours = parseInt(timeStr.substring(0, 2), 10);
+        mins = parseInt(timeStr.substring(2, 4), 10);
+      } else if (timeStr.length === 3) {
+        // HMM format (e.g., "620" for 6:20)
+        hours = parseInt(timeStr.substring(0, 1), 10);
+        mins = parseInt(timeStr.substring(1, 3), 10);
+      } else {
+        return null;
+      }
+      
       if (isNaN(hours) || isNaN(mins)) return null;
+      if (hours < 0 || hours > 23 || mins < 0 || mins > 59) return null;
       return { hours, mins };
     };
     
@@ -186,6 +204,20 @@ export default function EditEntryScreen() {
     }
     
     return cleaned;
+  };
+
+  // Normalize time to HH:MM format (for data that comes in as HHMM)
+  const normalizeTime = (time: string | null): string => {
+    if (!time) return '';
+    if (time.includes(':')) return time;
+    
+    // Convert HHMM or HMM to HH:MM
+    if (time.length === 4) {
+      return `${time.substring(0, 2)}:${time.substring(2, 4)}`;
+    } else if (time.length === 3) {
+      return `0${time.substring(0, 1)}:${time.substring(1, 3)}`;
+    }
+    return time;
   };
 
   const handleStartTimeChange = (text: string) => {

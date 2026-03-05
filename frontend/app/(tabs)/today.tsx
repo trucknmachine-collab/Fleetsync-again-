@@ -191,12 +191,27 @@ export default function TodayScreen() {
   const calculateHours = (start: string, end: string, breakMins: number): { total: number; overtime: number } => {
     if (!start || !end) return { total: 0, overtime: 0 };
     
-    // Parse time - handle both HH:MM and H:MM formats
+    // Parse time - handle HH:MM, H:MM, HHMM, and HMM formats
     const parseTime = (timeStr: string): { hours: number; mins: number } | null => {
-      const parts = timeStr.split(':');
-      if (parts.length !== 2) return null;
-      const hours = parseInt(parts[0], 10);
-      const mins = parseInt(parts[1], 10);
+      let hours: number, mins: number;
+      
+      if (timeStr.includes(':')) {
+        const parts = timeStr.split(':');
+        if (parts.length !== 2) return null;
+        hours = parseInt(parts[0], 10);
+        mins = parseInt(parts[1], 10);
+      } else if (timeStr.length === 4) {
+        // HHMM format
+        hours = parseInt(timeStr.substring(0, 2), 10);
+        mins = parseInt(timeStr.substring(2, 4), 10);
+      } else if (timeStr.length === 3) {
+        // HMM format (e.g., "620" for 6:20)
+        hours = parseInt(timeStr.substring(0, 1), 10);
+        mins = parseInt(timeStr.substring(1, 3), 10);
+      } else {
+        return null;
+      }
+      
       if (isNaN(hours) || isNaN(mins)) return null;
       if (hours < 0 || hours > 23 || mins < 0 || mins > 59) return null;
       return { hours, mins };
