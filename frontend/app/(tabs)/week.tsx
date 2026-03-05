@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { format, startOfWeek, endOfWeek, addWeeks, subWeeks, eachDayOfInterval } from 'date-fns';
+import { useRouter, useFocusEffect } from 'expo-router';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL || '';
 
@@ -51,6 +52,7 @@ interface WeeklySummary {
 }
 
 export default function WeekScreen() {
+  const router = useRouter();
   const [currentWeekStart, setCurrentWeekStart] = useState(
     startOfWeek(new Date(), { weekStartsOn: 1 })
   );
@@ -60,37 +62,40 @@ export default function WeekScreen() {
   const weekEnd = endOfWeek(currentWeekStart, { weekStartsOn: 1 });
   const weekDays = eachDayOfInterval({ start: currentWeekStart, end: weekEnd });
 
-  useEffect(() => {
-    const fetchWeeklySummary = async () => {
-      try {
-        setLoading(true);
-        const startStr = format(currentWeekStart, 'yyyy-MM-dd');
-        const endStr = format(endOfWeek(currentWeekStart, { weekStartsOn: 1 }), 'yyyy-MM-dd');
-        
-        console.log('Fetching weekly summary:', `${API_URL}/api/weekly-summary?week_start=${startStr}&week_end=${endStr}`);
-        
-        const response = await fetch(
-          `${API_URL}/api/weekly-summary?week_start=${startStr}&week_end=${endStr}`
-        );
-        
-        if (response.ok) {
-          const data = await response.json();
-          console.log('Weekly summary data:', data);
-          setSummary(data);
-        } else {
-          console.error('Response not ok:', response.status);
-          setSummary(null);
-        }
-      } catch (error) {
-        console.error('Error fetching weekly summary:', error);
+  const fetchWeeklySummary = useCallback(async () => {
+    try {
+      setLoading(true);
+      const startStr = format(currentWeekStart, 'yyyy-MM-dd');
+      const endStr = format(endOfWeek(currentWeekStart, { weekStartsOn: 1 }), 'yyyy-MM-dd');
+      
+      console.log('Fetching weekly summary:', `${API_URL}/api/weekly-summary?week_start=${startStr}&week_end=${endStr}`);
+      
+      const response = await fetch(
+        `${API_URL}/api/weekly-summary?week_start=${startStr}&week_end=${endStr}`
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Weekly summary data:', data);
+        setSummary(data);
+      } else {
+        console.error('Response not ok:', response.status);
         setSummary(null);
-      } finally {
-        setLoading(false);
       }
-    };
-    
-    fetchWeeklySummary();
+    } catch (error) {
+      console.error('Error fetching weekly summary:', error);
+      setSummary(null);
+    } finally {
+      setLoading(false);
+    }
   }, [currentWeekStart]);
+
+  // Refresh when screen is focused (after editing)
+  useFocusEffect(
+    useCallback(() => {
+      fetchWeeklySummary();
+    }, [fetchWeeklySummary])
+  );
 
   const goToPreviousWeek = () => {
     setCurrentWeekStart(subWeeks(currentWeekStart, 1));
@@ -107,6 +112,11 @@ export default function WeekScreen() {
   const getEntryForDate = (date: Date): DailyEntry | undefined => {
     const dateStr = format(date, 'yyyy-MM-dd');
     return summary?.entries.find(e => e.date === dateStr);
+  };
+
+  const handleEditEntry = (date: Date) => {
+    const dateStr = format(date, 'yyyy-MM-dd');
+    router.push(`/edit/${dateStr}`);
   };
 
   const generateShareText = (): string => {
@@ -250,15 +260,18 @@ export default function WeekScreen() {
               {weekDays.map(day => {
                 const entry = getEntryForDate(day);
                 const isToday = format(day, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd');
+                const hasEntry = entry && entry.total_hours > 0;
                 
                 return (
-                  <View
+                  <TouchableOpacity
                     key={day.toISOString()}
                     style={[
                       styles.dayCard,
                       isToday && styles.todayCard,
-                      entry && entry.total_hours > 0 && styles.workedCard,
+                      hasEntry && styles.workedCard,
                     ]}
+                    onPress={() => handleEditEntry(day)}
+                    activeOpacity={0.7}
                   >
                     <View style={styles.dayHeader}>
                       <Text style={styles.dayName}>{format(day, 'EEE')}</Text>
@@ -268,9 +281,10 @@ export default function WeekScreen() {
                           <Text style={styles.todayBadgeText}>Today</Text>
                         </View>
                       )}
+                      <Ionicons name="create-outline" size={20} color="#9ca3af" style={styles.editIcon} />
                     </View>
                     
-                    {entry && entry.total_hours > 0 ? (
+                    {hasEntry ? (
                       <View style={styles.entryDetails}>
                         <View style={styles.entryRow}>
                           <Ionicons name="time-outline" size={16} color="#9ca3af" />
@@ -315,9 +329,12 @@ export default function WeekScreen() {
                         </View>
                       </View>
                     ) : (
-                      <Text style={styles.noEntryText}>No entry</Text>
+                      <View style={styles.noEntryContainer}>
+                        <Text style={styles.noEntryText}>No entry</Text>
+                        <Text style={styles.tapToAddText}>Tap to add</Text>
+                      </View>
                     )}
-                  </View>
+                  </TouchableOpacity>
                 );
               })}
             </View>
@@ -473,6 +490,20 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     fontSize: 14,
     marginLeft: 50,
+  },
+  noEntryContainer: {
+    marginLeft: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  tapToAddText: {
+    color: '#4ade80',
+    fontSize: 12,
+    fontStyle: 'italic',
+  },
+  editIcon: {
+    marginLeft: 'auto',
   },
   shareButton: {
     flexDirection: 'row',
