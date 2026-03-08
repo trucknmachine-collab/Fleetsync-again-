@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi.responses import FileResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -206,6 +207,19 @@ async def get_weekly_summary(week_start: str, week_end: str):
         total_overtime=total_overtime,
         days_worked=days_worked,
         entries=[DailyEntry(**e) for e in entries]
+    )
+
+# Download endpoint for source code
+@api_router.get("/download/source-code")
+async def download_source_code():
+    """Download the complete source code package"""
+    file_path = Path("/app/download_package/truck-and-machine-app.zip")
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Download package not found")
+    return FileResponse(
+        path=str(file_path),
+        filename="truck-and-machine-app.zip",
+        media_type="application/zip"
     )
 
 # Include the router in the main app
